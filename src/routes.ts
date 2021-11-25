@@ -28,7 +28,7 @@ const routes: RouteType[] = [
   },
   // Página de início com cabeçalho
   // Esta página ficará montada assim na renderização:
-  // <AppProvider>
+  // <AppProvider headerLinks={[...]}>
   //   <HomePage />
   // </AppProvider>
   {
@@ -39,7 +39,7 @@ const routes: RouteType[] = [
     routes: [
       // Página de perfil (filha da home)
       // Esta página ficará montada assim na renderização:
-      // <AppProvider>
+      // <AppProvider headerLinks={[...]}>
       //   <ProfilePage />
       // </AppProvider>
       {
@@ -49,7 +49,7 @@ const routes: RouteType[] = [
       },
       // Página de editar perfil (fila da home)
       // Esta página ficará montada assim na renderização:
-      // <AppProvider>
+      // <AppProvider headerLinks={[...]}>
       //   <ProfileEditPage />
       // </AppProvider>
       {
@@ -59,7 +59,7 @@ const routes: RouteType[] = [
       },
       // Página de rotas não encontradas (filha da home)
       // Esta página ficará montada assim na renderização:
-      // <AppProvider>
+      // <AppProvider headerLinks={[...]}>
       //   <EmptyPage />
       // </AppProvider>
       {
