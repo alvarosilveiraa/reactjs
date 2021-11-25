@@ -5,6 +5,6 @@ export type AppContextType = {};
 
 export type AppProviderType = {
   title?: string;
-  links?: LinkType[];
+  headerLinks?: LinkType[];
   children?: ReactNode;
 };

@@ -1,6 +1,6 @@
 import {RouteType} from '~/typings';
 import {Body, Fullscreen} from '~/components';
-import {AppProvider, HeaderProvider} from '~/contexts';
+import {AppProvider} from '~/contexts';
 import {
   EmptyPage,
   HomePage,
@@ -10,7 +10,11 @@ import {
 } from '~/pages';
 
 const routes: RouteType[] = [
-  // Página de login sem cabeçalho
+  // Página de login sem cabeçalho e com os componentes Body e Fullscreen como layout
+  // Esta página ficará montada assim na renderização:
+  // <Fullscreen>
+  //   <Body><SigninPage title="Signin" /></Body>
+  // </Fullscreen>
   {
     name: 'signin',
     path: '/signin',
@@ -23,6 +27,10 @@ const routes: RouteType[] = [
     Layouts: [Body, Fullscreen],
   },
   // Página de início com cabeçalho
+  // Esta página ficará montada assim na renderização:
+  // <AppProvider>
+  //   <HomePage />
+  // </AppProvider>
   {
     name: 'home',
     path: '/',
@@ -30,49 +38,56 @@ const routes: RouteType[] = [
     // Rotas filhas que herdarão os layouts da home
     routes: [
       // Página de perfil (filha da home)
+      // Esta página ficará montada assim na renderização:
+      // <AppProvider>
+      //   <ProfilePage />
+      // </AppProvider>
       {
         name: 'profile',
         path: '/profile',
         Component: ProfilePage,
       },
+      // Página de editar perfil (fila da home)
+      // Esta página ficará montada assim na renderização:
+      // <AppProvider>
+      //   <ProfileEditPage />
+      // </AppProvider>
       {
         name: 'profile',
         path: '/profile/edit',
         Component: ProfileEditPage,
       },
-      // Página para rotas não encontradas (filha da home)
+      // Página de rotas não encontradas (filha da home)
+      // Esta página ficará montada assim na renderização:
+      // <AppProvider>
+      //   <EmptyPage />
+      // </AppProvider>
       {
         name: 'empty',
         path: '/*',
         Component: EmptyPage,
       },
     ],
-    layouts: [
-      {
-        // "Context" de página que possui um header e um conteúdo abaixo (página)
-        Function: AppProvider,
-        props: {
-          links: [
-            {
-              path: '/',
-              label: 'Inicio',
-            },
-            {
-              path: '/profile',
-              label: 'Perfil',
-            },
-            {
-              path: '/signin',
-              label: 'Sair',
-            },
-          ],
-        },
+    layout: {
+      // "Context" que possui um header e um conteúdo abaixo (componente da página)
+      Function: AppProvider,
+      props: {
+        headerLinks: [
+          {
+            path: '/',
+            label: 'Inicio',
+          },
+          {
+            path: '/profile',
+            label: 'Perfil',
+          },
+          {
+            path: '/signin',
+            label: 'Sair',
+          },
+        ],
       },
-      {
-        // "Context" do header com método e variavel para manipulação da altura
-        Function: HeaderProvider,
-      },
-    ],
+    },
   },
 ];
 

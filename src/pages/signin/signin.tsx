@@ -1,9 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {SigninPageType} from './signin.type';
 
-export const SigninPage = () => (
+export const SigninPage = ({title}: SigninPageType) => (
   <>
-    <p>Profile</p>
+    <p>{title}</p>
 
     <br />
 

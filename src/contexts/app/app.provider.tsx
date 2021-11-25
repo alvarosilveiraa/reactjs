@@ -1,19 +1,21 @@
 import React from 'react';
 import {Header, Fullscreen, Body} from '~/components';
-import {useHeaderContext} from '..';
+import {HeaderProvider, useHeaderContext} from '../';
 import {AppContext} from './app.context';
 import {AppProviderType} from './app.type';
 
-export const AppProvider = ({links, children}: AppProviderType) => {
-  const {height} = useHeaderContext();
+export const AppProvider = ({headerLinks, children}: AppProviderType) => {
+  const {height: headerHeight} = useHeaderContext();
 
   return (
-    <AppContext.Provider value={{}}>
-      <Fullscreen>
-        <Header links={links} height={height} />
+    <HeaderProvider>
+      <AppContext.Provider value={{}}>
+        <Fullscreen>
+          <Header links={headerLinks} height={headerHeight} />
 
-        <Body>{children}</Body>
-      </Fullscreen>
-    </AppContext.Provider>
+          <Body>{children}</Body>
+        </Fullscreen>
+      </AppContext.Provider>
+    </HeaderProvider>
   );
 };
