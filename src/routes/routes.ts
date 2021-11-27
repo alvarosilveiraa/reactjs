@@ -1,5 +1,5 @@
 import {Body, Fullscreen} from '~/components';
-import {AppProvider, ToolkitProvider} from '~/contexts';
+import {AppProvider, ToolkitProvider, ModalProvider} from '~/contexts';
 import {
   EmptyPage,
   HomePage,
@@ -43,24 +43,29 @@ export const routes: RouteType[] = [
         Component: EmptyPage,
       },
     ],
-    layout: {
-      Function: AppProvider,
-      props: {
-        headerLinks: [
-          {
-            path: '/',
-            label: 'Inicio',
-          },
-          {
-            path: '/profile',
-            label: 'Perfil',
-          },
-          {
-            path: '/signin',
-            label: 'Sair',
-          },
-        ],
+    layouts: [
+      {
+        Function: AppProvider,
+        props: {
+          headerLinks: [
+            {
+              path: '/',
+              label: 'Inicio',
+            },
+            {
+              path: '/profile',
+              label: 'Perfil',
+            },
+            {
+              path: '/signin',
+              label: 'Sair',
+            },
+          ],
+        },
       },
-    },
+      {
+        Function: ModalProvider,
+      },
+    ],
   },
 ];
