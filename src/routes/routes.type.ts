@@ -7,7 +7,8 @@ export type RouteFCType = {
 
 export type RouteType = {
   name: string;
-  path?: string;
+  path: string;
+  title?: string;
   component?: RouteFCType;
   Component?: FC<any>;
   layouts?: RouteFCType[];

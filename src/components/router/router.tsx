@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import {RouteFCType, RouteType} from '~/typings';
-import routes from '~/routes';
+import {RouteFCType, RouteType} from '~/routes';
+import {routes} from '~/routes';
 import {Layouts} from '../layouts';
 
 export const Router = () => {
@@ -71,7 +71,7 @@ export const Router = () => {
       <Route
         key={`route-${name}`}
         path={path}
-        element={<Layouts layouts={newLayouts} />}
+        element={<Layouts route={route} layouts={newLayouts} />}
       />,
     );
 

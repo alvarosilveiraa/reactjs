@@ -1,7 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useLocation} from 'react-router-dom';
 import {LayoutsType} from './layouts.type';
 
-export const Layouts = ({layouts = []}: LayoutsType) => {
+export const Layouts = ({route, layouts = []}: LayoutsType) => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (route?.title && location) {
+      document.title = route.title;
+    }
+  }, [route, location]);
+
   const Layout = layouts.reduce((prev, next) => {
     const PrevComponent = prev?.Function;
 
