@@ -1,3 +1,5 @@
+import {StyledComponent} from 'styled-components';
+
 export type ModalButtonType = {
   type: string;
   label: string;
@@ -16,7 +18,12 @@ export type ModalType = {
   fullscreen?: boolean;
   onDismiss?: () => void;
   renderHeader?: any;
-  renderContent?: any;
+  renderContent?: (
+    Content: StyledComponent<'div', any>,
+    renderButtons?: (
+      buttons?: ModalButtonType[],
+    ) => JSX.Element | JSX.Element[],
+  ) => JSX.Element;
   renderFooter?: any;
   children?: any;
   backgroundColor?: string;

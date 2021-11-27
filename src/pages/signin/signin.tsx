@@ -1,15 +1,21 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {SigninPageType} from './signin.type';
+import {Button} from '@material-ui/core';
+import {useModalContext} from '~/contexts';
 
-export const SigninPage = ({title}: SigninPageType) => (
-  <>
-    <p>{title}</p>
+export const SigninPage = () => {
+  const {setVisible} = useModalContext();
 
-    <br />
+  return (
+    <>
+      <p>Signin</p>
 
-    <br />
+      <br />
 
-    <Link to="/">Entrar</Link>
-  </>
-);
+      <br />
+
+      <Button variant="contained" onClick={() => setVisible?.(true)}>
+        Abrir Modal
+      </Button>
+    </>
+  );
+};

@@ -1,13 +1,17 @@
 import React, {useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
-import {LayoutsType} from './layouts.type';
+import {LayoutsType} from './router-layouts.type';
 
-export const Layouts = ({route, layouts = []}: LayoutsType) => {
+export const Layouts = ({route, layouts = [], onRoute}: LayoutsType) => {
   const location = useLocation();
 
   useEffect(() => {
-    if (route?.title && location) {
-      document.title = route.title;
+    if (route && location) {
+      if (route.title) {
+        document.title = route.title;
+      }
+
+      onRoute?.(route);
     }
   }, [route, location]);
 

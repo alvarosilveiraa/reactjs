@@ -2,9 +2,10 @@ import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {RouteFCType, RouteType} from '~/routes';
 import {routes} from '~/routes';
-import {Layouts} from '../layouts';
+import {Layouts} from './router-layouts';
+import {RouterType} from './router.type';
 
-export const Router = () => {
+export const Router = ({onRoute}: RouterType) => {
   const getNewLayouts = (
     {
       component,
@@ -71,7 +72,9 @@ export const Router = () => {
       <Route
         key={`route-${name}`}
         path={path}
-        element={<Layouts route={route} layouts={newLayouts} />}
+        element={
+          <Layouts route={route} layouts={newLayouts} onRoute={onRoute} />
+        }
       />,
     );
 

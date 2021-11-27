@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-// import {IconButton} from '@material-ui/core';
-// import {Close} from '@material-ui/icons';
-// import {OttoIcon, Spinner} from '~/components/atoms';
+import {IconButton} from '@material-ui/core';
+import {ArrowBack, Close} from '@material-ui/icons';
+import {Spinner} from '~/components';
 import {MODAL_ANIMATION_TIMEOUT} from './modal.constants';
 import {ModalType, ModalButtonType} from './modal.type';
 import {
@@ -99,7 +99,7 @@ export const Modal = ({
     >
       {label}
 
-      {/* {(loading || !!buttonsLoading[i]) && <Spinner style={styles.spinner} />} */}
+      {(loading || !!buttonsLoading[i]) && <Spinner style={{marginLeft: 6}} />}
     </Button>
   );
 
@@ -139,7 +139,7 @@ export const Modal = ({
           <ModalHeaderContainerStyle>
             {showBackButton ? (
               <HeaderButton onClick={onBack}>
-                {/* <OttoIcon name="return" size="20px" color="primary2" /> */}
+                <ArrowBack />
               </HeaderButton>
             ) : (
               <HeaderButton />
@@ -154,9 +154,9 @@ export const Modal = ({
         {typeof renderHeader === 'function' && renderHeader()}
 
         <Dismiss>
-          {/* <IconButton onClick={onDismiss}>
+          <IconButton onClick={onDismiss}>
             <Close />
-          </IconButton> */}
+          </IconButton>
         </Dismiss>
 
         {!!children && (

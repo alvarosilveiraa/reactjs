@@ -1,4 +1,5 @@
 import {ReactNode} from 'react';
+import {RouteType} from '~/routes';
 
 export type HeaderContextType = {
   height: number;
@@ -6,5 +7,6 @@ export type HeaderContextType = {
 };
 
 export type HeaderProviderType = {
+  route: RouteType;
   children: ReactNode;
 };

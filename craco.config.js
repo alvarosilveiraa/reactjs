@@ -11,6 +11,11 @@ const config = {
       },
     },
   ],
+  webpack: {
+    alias: {
+      '@material-ui/styled-engine': '@material-ui/styled-engine-sc',
+    },
+  },
 };
 
 module.exports = config;

@@ -1,5 +1,5 @@
 import {Body, Fullscreen} from '~/components';
-import {AppProvider, ToolkitProvider, ModalProvider} from '~/contexts';
+import {AppProvider, HeaderProvider, ModalProvider} from '~/contexts';
 import {
   EmptyPage,
   HomePage,
@@ -16,7 +16,7 @@ export const routes: RouteType[] = [
     path: '/signin',
     title: getRouteTitle('Signin'),
     Component: SigninPage,
-    Layouts: [Body, Fullscreen, ToolkitProvider],
+    Layouts: [Body, Fullscreen, ModalProvider],
   },
   {
     name: 'home',
@@ -31,7 +31,7 @@ export const routes: RouteType[] = [
         Component: ProfilePage,
       },
       {
-        name: 'profile',
+        name: 'profile-edit',
         path: '/profile/edit',
         title: getRouteTitle('Profile Edit'),
         Component: ProfileEditPage,
@@ -49,19 +49,25 @@ export const routes: RouteType[] = [
         props: {
           headerLinks: [
             {
+              name: 'home',
               path: '/',
               label: 'Inicio',
             },
             {
+              name: 'profile',
               path: '/profile',
               label: 'Perfil',
             },
             {
+              name: 'signin',
               path: '/signin',
               label: 'Sair',
             },
           ],
         },
+      },
+      {
+        Function: HeaderProvider,
       },
       {
         Function: ModalProvider,

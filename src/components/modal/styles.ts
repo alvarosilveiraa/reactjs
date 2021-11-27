@@ -136,7 +136,7 @@ export const ModalTitleStyle = styled.span<any>`
 
 export const Dismiss = styled.div`
   position: absolute;
-  top: 10px;
+  top: 14px;
   right: 16px;
   z-index: 10;
 
