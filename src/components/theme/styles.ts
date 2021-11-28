@@ -16,7 +16,7 @@ export const Content = styled.div<ContentType>`
   display: flex;
   flex-direction: row;
   width: ${({visible}) => (visible ? '400px' : '24px')};
-  background-color: ${({theme}) => theme?.palette?.secondary?.main};
+  background-color: #ffffff;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   transition: width 200ms;
   z-index: 1;
@@ -33,6 +33,5 @@ export const ExpandArea = styled.button`
   border: none;
   outline: none;
   box-sizing: border-box;
-  border-right: 1px solid rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
 `;
