@@ -1,8 +1,9 @@
 import {ReactNode} from 'react';
 
 export type ThemeContextType = {
-  visible: boolean;
-  setVisible?: (visible: boolean) => void;
+  isOpen: boolean;
+  onOpen?: () => void;
+  onClose?: () => void;
 };
 
 export type ThemeProviderType = {

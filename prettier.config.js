@@ -1,4 +1,4 @@
-const config = {
+module.exports = {
   trailingComma: 'all',
   tabWidth: 2,
   semi: true,
@@ -8,5 +8,3 @@ const config = {
   arrowParens: 'avoid',
   bracketSpacing: false,
 };
-
-module.exports = config;

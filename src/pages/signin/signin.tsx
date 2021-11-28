@@ -1,9 +1,9 @@
 import React from 'react';
-import {Button} from '@material-ui/core';
+import {Button} from '@chakra-ui/react';
 import {useModalContext} from '~/contexts';
 
 export const SigninPage = () => {
-  const {setVisible} = useModalContext();
+  const {onOpen} = useModalContext();
 
   return (
     <>
@@ -13,7 +13,7 @@ export const SigninPage = () => {
 
       <br />
 
-      <Button variant="contained" onClick={() => setVisible?.(true)}>
+      <Button variant="contained" onClick={() => onOpen?.()}>
         Abrir Modal
       </Button>
     </>

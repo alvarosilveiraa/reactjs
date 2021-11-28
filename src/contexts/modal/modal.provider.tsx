@@ -1,45 +1,48 @@
-import React, {useState} from 'react';
-import {Link} from '@material-ui/core';
-import {Modal} from '~/components';
+import React from 'react';
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+} from '@chakra-ui/react';
 import {ModalContext} from './modal.context';
 import {ModalProviderType} from './modal.type';
 import {useNavigate} from 'react-router';
-import {StyledComponent} from 'styled-components';
 
 export const ModalProvider = ({children}: ModalProviderType) => {
   const navigate = useNavigate();
-  const [visible, setVisible] = useState(false);
-
-  const renderContent = (Container: StyledComponent<'div', any>) => (
-    <Container style={{alignItems: 'center', justifyContent: 'center'}}>
-      <Link
-        variant="button"
-        marginLeft="4px"
-        marginRight="4px"
-        color="secondary"
-        onClick={() => navigate('/')}
-        style={{cursor: 'pointer'}}
-      >
-        Entrar
-      </Link>
-    </Container>
-  );
+  const {isOpen, onOpen, onClose} = useDisclosure();
 
   return (
     <ModalContext.Provider
       value={{
-        visible,
-        setVisible,
+        isOpen,
+        onOpen,
+        onClose,
       }}
     >
       {children}
 
-      <Modal
-        title="Modal Example"
-        visible={visible}
-        onDismiss={() => setVisible(false)}
-        renderContent={renderContent}
-      />
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+
+        <ModalContent>
+          <ModalHeader>Modal Title</ModalHeader>
+
+          <ModalCloseButton />
+
+          <ModalBody>Lorem...</ModalBody>
+
+          <ModalFooter>
+            <Button onClick={() => navigate('/')}>Entrar</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </ModalContext.Provider>
   );
 };

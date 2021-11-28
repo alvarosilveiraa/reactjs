@@ -1,25 +1,26 @@
-import React, {useState} from 'react';
-import {ThemeProvider as ThemeProviderUI} from '@material-ui/core';
+import React from 'react';
+import {ChakraProvider, useDisclosure} from '@chakra-ui/react';
 import {Theme} from '~/components';
 import {ThemeContext} from './theme.context';
 import {ThemeProviderType} from './theme.type';
 import {theme} from '~/theme';
 
 export const ThemeProvider = ({children}: ThemeProviderType) => {
-  const [visible, setVisible] = useState(false);
+  const {isOpen, onOpen, onClose} = useDisclosure();
 
   return (
     <ThemeContext.Provider
       value={{
-        visible,
-        setVisible,
+        isOpen,
+        onOpen,
+        onClose,
       }}
     >
-      <ThemeProviderUI theme={theme}>
-        <Theme visible={visible} setVisible={setVisible}>
+      <ChakraProvider theme={theme}>
+        <Theme isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
           {children}
         </Theme>
-      </ThemeProviderUI>
+      </ChakraProvider>
     </ThemeContext.Provider>
   );
 };

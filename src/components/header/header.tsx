@@ -1,9 +1,8 @@
 import React from 'react';
-import {Link} from '@material-ui/core';
-import {HeaderType} from './header.type';
-import {Container, Content} from './styles';
-import {LinkType} from '~/typings';
+import {Link, chakra} from '@chakra-ui/react';
 import {useNavigate} from 'react-router';
+import {HeaderType} from './header.type';
+import {LinkType} from '~/typings';
 import {useRouterContext} from '~/contexts';
 
 export const Header = ({links, height}: HeaderType) => {
@@ -29,8 +28,23 @@ export const Header = ({links, height}: HeaderType) => {
   };
 
   return (
-    <Container>
-      <Content height={height}>{links?.map(renderLink)}</Content>
-    </Container>
+    <chakra.div
+      backgroundColor="#1a1a1a"
+      boxShadow="0 0 4px rgba(0, 0, 0, 0.4)"
+    >
+      <chakra.div
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="center"
+        width="100%"
+        maxWidth="1400px"
+        height={`${height}px`}
+        margin="0 auto"
+        transition="height 300ms"
+      >
+        {links?.map(renderLink)}
+      </chakra.div>
+    </chakra.div>
   );
 };

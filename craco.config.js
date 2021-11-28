@@ -1,6 +1,6 @@
 const CracoAliasPlugin = require('craco-alias');
 
-const config = {
+module.exports = {
   plugins: [
     {
       plugin: CracoAliasPlugin,
@@ -11,11 +11,4 @@ const config = {
       },
     },
   ],
-  webpack: {
-    alias: {
-      '@material-ui/styled-engine': '@material-ui/styled-engine-sc',
-    },
-  },
 };
-
-module.exports = config;
