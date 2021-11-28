@@ -1,3 +1,4 @@
 import React from 'react';
+import {Heading} from '@chakra-ui/layout';
 
-export const HomePage = () => <p>Home</p>;
+export const HomePage = () => <Heading>Home</Heading>;

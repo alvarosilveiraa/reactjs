@@ -1,14 +1,17 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Heading} from '@chakra-ui/react';
+import {useNavigate} from 'react-router';
 
-export const ProfilePage = () => (
-  <>
-    <p>Profile</p>
+export const ProfilePage = () => {
+  const navigate = useNavigate();
 
-    <br />
+  return (
+    <>
+      <Heading marginBottom={4}>Profile</Heading>
 
-    <br />
-
-    <Link to="/profile/edit">Editar Perfil</Link>
-  </>
-);
+      <Link as="button" color="teal" onClick={() => navigate('/profile/edit')}>
+        Editar Perfil
+      </Link>
+    </>
+  );
+};

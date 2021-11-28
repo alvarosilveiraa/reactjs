@@ -1,8 +1,13 @@
 import {ReactNode} from 'react';
 
+export type ModalDataType = {
+  title: string;
+  body: string;
+};
+
 export type ModalContextType = {
   isOpen: boolean;
-  onOpen?: () => void;
+  onOpen?: (data: ModalDataType) => void;
   onClose?: () => void;
 };
 

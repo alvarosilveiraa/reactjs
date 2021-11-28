@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -6,24 +6,29 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  ModalFooter,
-  Button,
   useDisclosure,
 } from '@chakra-ui/react';
 import {ModalContext} from './modal.context';
-import {ModalProviderType} from './modal.type';
-import {useNavigate} from 'react-router';
+import {ModalDataType, ModalProviderType} from './modal.type';
 
 export const ModalProvider = ({children}: ModalProviderType) => {
-  const navigate = useNavigate();
   const {isOpen, onOpen, onClose} = useDisclosure();
+  const [data, setData] = useState<ModalDataType | null>(null);
+
+  useEffect(() => {
+    if (data) {
+      onOpen();
+    } else {
+      onClose();
+    }
+  }, [data]);
 
   return (
     <ModalContext.Provider
       value={{
         isOpen,
-        onOpen,
-        onClose,
+        onOpen: setData,
+        onClose: () => setData(null),
       }}
     >
       {children}
@@ -32,15 +37,11 @@ export const ModalProvider = ({children}: ModalProviderType) => {
         <ModalOverlay />
 
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>{data?.title}</ModalHeader>
 
           <ModalCloseButton />
 
-          <ModalBody>Lorem...</ModalBody>
-
-          <ModalFooter>
-            <Button onClick={() => navigate('/')}>Entrar</Button>
-          </ModalFooter>
+          <ModalBody>{data?.body}</ModalBody>
         </ModalContent>
       </Modal>
     </ModalContext.Provider>

@@ -1,3 +1,4 @@
 import React from 'react';
+import {Heading} from '@chakra-ui/layout';
 
-export const EmptyPage = () => <p>Empty</p>;
+export const EmptyPage = () => <Heading>Empty</Heading>;

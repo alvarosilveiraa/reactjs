@@ -3,6 +3,7 @@ import * as chakra from '@chakra-ui/react';
 import {ChakraProvider, useDisclosure} from '@chakra-ui/react';
 import {filter} from 'lodash';
 import {Theme} from '~/components';
+import {ModalProvider} from '../';
 import {ThemeContext} from './theme.context';
 import {ThemeProviderType} from './theme.type';
 import {theme} from '~/theme';
@@ -39,14 +40,16 @@ export const ThemeProvider = ({children}: ThemeProviderType) => {
       }}
     >
       <ChakraProvider theme={theme}>
-        <Theme
-          isOpen={isOpen}
-          onOpen={onOpen}
-          onClose={onClose}
-          components={filter(chakraData, {type: 'component'})}
-        >
-          {children}
-        </Theme>
+        <ModalProvider>
+          <Theme
+            isOpen={isOpen}
+            onOpen={onOpen}
+            onClose={onClose}
+            components={filter(chakraData, {type: 'component'})}
+          >
+            {children}
+          </Theme>
+        </ModalProvider>
       </ChakraProvider>
     </ThemeContext.Provider>
   );

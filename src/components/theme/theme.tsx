@@ -10,6 +10,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import {ChevronLeftIcon, ChevronRightIcon} from '@chakra-ui/icons';
+import {useModalContext} from '~/contexts';
 import {ThemeType} from './theme.type';
 import {ThemeComponent} from '~/theme';
 
@@ -20,6 +21,7 @@ export const Theme = ({
   components = [],
   children,
 }: ThemeType) => {
+  const {onOpen: modalOnOpen} = useModalContext();
   const [filterComponentsValue, setFilterComponentsValue] = useState('');
 
   const filterComponents = ({name}: ThemeComponent) => {
@@ -28,18 +30,20 @@ export const Theme = ({
     return pattern.test(name);
   };
 
-  const renderComponent = ({name}: ThemeComponent) => (
-    <ListItem key={`component-${name}`}>
+  const renderComponent = (component: ThemeComponent) => (
+    <ListItem key={`component-${component.name}`}>
       <Button
         width="100%"
         colorScheme="teal"
         variant="ghost"
         justifyContent="flex-start"
         borderRadius={0}
-        onClick={() => alert('click')}
-        loadingText={name}
+        onClick={() =>
+          modalOnOpen?.({title: component.name, body: 'Exemplo/Edição/Copiar'})
+        }
+        loadingText={component.name}
       >
-        {name}
+        {component.name}
       </Button>
     </ListItem>
   );

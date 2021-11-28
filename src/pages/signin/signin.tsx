@@ -1,20 +1,16 @@
 import React from 'react';
-import {Button} from '@chakra-ui/react';
-import {useModalContext} from '~/contexts';
+import {Button, Heading} from '@chakra-ui/react';
+import {useNavigate} from 'react-router';
 
 export const SigninPage = () => {
-  const {onOpen} = useModalContext();
+  const navigate = useNavigate();
 
   return (
     <>
-      <p>Signin</p>
+      <Heading marginBottom={8}>Signin</Heading>
 
-      <br />
-
-      <br />
-
-      <Button variant="contained" onClick={() => onOpen?.()}>
-        Abrir Modal
+      <Button colorScheme="teal" onClick={() => navigate('/')}>
+        Entrar
       </Button>
     </>
   );

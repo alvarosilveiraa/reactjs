@@ -1,3 +1,4 @@
 import React from 'react';
+import {Heading} from '@chakra-ui/layout';
 
-export const ProfileEditPage = () => <p>Profile Edit</p>;
+export const ProfileEditPage = () => <Heading>Profile Edit</Heading>;

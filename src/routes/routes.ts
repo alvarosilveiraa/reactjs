@@ -1,5 +1,5 @@
 import {Body, Fullscreen} from '~/components';
-import {AppProvider, HeaderProvider, ModalProvider} from '~/contexts';
+import {AppProvider, HeaderProvider} from '~/contexts';
 import {
   EmptyPage,
   HomePage,
@@ -16,7 +16,7 @@ export const routes: RouteType[] = [
     path: '/signin',
     title: getRouteTitle('Signin'),
     Component: SigninPage,
-    Layouts: [Body, Fullscreen, ModalProvider],
+    Layouts: [Body, Fullscreen],
   },
   {
     name: 'home',
