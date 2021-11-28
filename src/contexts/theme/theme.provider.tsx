@@ -40,7 +40,7 @@ export const ThemeProvider = ({children}: ThemeProviderType) => {
       }}
     >
       <ChakraProvider theme={theme}>
-        <ModalProvider>
+        <ModalProvider themeIsOpen={isOpen}>
           <Theme
             isOpen={isOpen}
             onOpen={onOpen}

@@ -12,5 +12,6 @@ export type ModalContextType = {
 };
 
 export type ModalProviderType = {
+  themeIsOpen?: boolean;
   children?: ReactNode;
 };

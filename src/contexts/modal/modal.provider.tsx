@@ -33,7 +33,7 @@ export const ModalProvider = ({children}: ModalProviderType) => {
     >
       {children}
 
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
 
         <ModalContent>

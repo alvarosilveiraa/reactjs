@@ -15,12 +15,12 @@ export const Header = ({links, height}: HeaderType) => {
     return (
       <Link
         key={`link-${path}`}
-        variant="button"
+        as="button"
+        cursor="pointer"
         marginLeft="4px"
         marginRight="4px"
         color={isActive ? 'white' : 'gray.300'}
         onClick={() => navigate(path)}
-        style={{cursor: 'pointer'}}
       >
         {label}
       </Link>

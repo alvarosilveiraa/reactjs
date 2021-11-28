@@ -8,3 +8,9 @@ export type ThemeType = {
   components?: ThemeComponent[];
   children?: ReactNode;
 };
+
+export type ThemeMousePositionType = null | {
+  x: number;
+  y: number;
+  ctrlKey: boolean;
+};
