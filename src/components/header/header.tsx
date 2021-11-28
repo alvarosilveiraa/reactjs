@@ -18,7 +18,7 @@ export const Header = ({links, height}: HeaderType) => {
         variant="button"
         marginLeft="4px"
         marginRight="4px"
-        color={isActive ? '#ffffff' : '#cccccc'}
+        color={isActive ? 'white' : 'gray.300'}
         onClick={() => navigate(path)}
         style={{cursor: 'pointer'}}
       >
@@ -29,7 +29,7 @@ export const Header = ({links, height}: HeaderType) => {
 
   return (
     <chakra.div
-      backgroundColor="#1a1a1a"
+      backgroundColor="gray.800"
       boxShadow="0 0 4px rgba(0, 0, 0, 0.4)"
     >
       <chakra.div

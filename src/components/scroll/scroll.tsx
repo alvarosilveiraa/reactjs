@@ -1,6 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {chakra} from '@chakra-ui/react';
-import {Spinner} from '../spinner';
+import {chakra, Spinner} from '@chakra-ui/react';
 import {ScrollType} from './scroll.type';
 
 export const Scroll = ({
