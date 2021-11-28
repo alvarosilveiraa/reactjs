@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {ContentType} from './styles.type';
 
 export const Container = styled.div`
-  background-color: #1a1a1a;
+  background-color: ${({theme}) => theme?.palette?.secondary?.main};
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 `;
 

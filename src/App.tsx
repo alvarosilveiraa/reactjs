@@ -1,11 +1,9 @@
 import React, {Fragment} from 'react';
-import {ThemeProvider} from '@material-ui/core';
-import {RouterProvider} from '~/contexts';
-import {theme} from '~/theme';
+import {RouterProvider, ThemeProvider} from '~/contexts';
 
 const App = (): JSX.Element => (
   <Fragment>
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <RouterProvider />
     </ThemeProvider>
   </Fragment>

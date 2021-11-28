@@ -69,9 +69,6 @@ export const routes: RouteType[] = [
       {
         Function: HeaderProvider,
       },
-      {
-        Function: ModalProvider,
-      },
     ],
   },
 ];

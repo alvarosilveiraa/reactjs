@@ -16,7 +16,7 @@ export const ModalProvider = ({children}: ModalProviderType) => {
         variant="button"
         marginLeft="4px"
         marginRight="4px"
-        color="#1a1a1a"
+        color="secondary"
         onClick={() => navigate('/')}
         style={{cursor: 'pointer'}}
       >
