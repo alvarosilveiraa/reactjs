@@ -4,10 +4,7 @@ import {Scroll} from '~/components/scroll';
 
 const ChakraScroll = chakra(Scroll);
 
-export const Body = ({
-  children,
-  ...props
-}: FormHTMLAttributes<HTMLDivElement>) => (
+export const Body = ({children, ...props}: FormHTMLAttributes<HTMLDivElement>) => (
   <ChakraScroll overflow="auto" flex={1} {...props}>
     <chakra.div
       display="flex"

@@ -28,10 +28,7 @@ export const Header = ({links, height}: HeaderType) => {
   };
 
   return (
-    <chakra.div
-      backgroundColor="gray.800"
-      boxShadow="0 0 4px rgba(0, 0, 0, 0.4)"
-    >
+    <chakra.div backgroundColor="gray.800" boxShadow="0 0 4px rgba(0, 0, 0, 0.4)">
       <chakra.div
         display="flex"
         flexDirection="row"

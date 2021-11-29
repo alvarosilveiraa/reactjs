@@ -24,11 +24,7 @@ export const Scroll = ({
 
     const sum = scrollTop + clientHeight;
 
-    if (
-      lastScrollTop &&
-      sum < scrollHeight - 30 &&
-      lastScrollTop !== scrollTop
-    ) {
+    if (lastScrollTop && sum < scrollHeight - 30 && lastScrollTop !== scrollTop) {
       if (lastScrollTop > scrollTop) {
         onScrollToTop?.(e);
       } else if (lastScrollTop < scrollTop) {
@@ -73,23 +69,14 @@ export const Scroll = ({
       justifyContent="center"
       height="200px"
     >
-      <chakra.div
-        padding="12px"
-        borderRadius="6px"
-        backgroundColor="rgba(0, 0, 0, 0.2)"
-      >
+      <chakra.div padding="12px" borderRadius="6px" backgroundColor="rgba(0, 0, 0, 0.2)">
         <Spinner />
       </chakra.div>
     </chakra.div>
   );
 
   return (
-    <chakra.div
-      position="relative"
-      height="100%"
-      ref={scrollRef}
-      onScroll={onScroll}
-    >
+    <chakra.div position="relative" height="100%" ref={scrollRef} onScroll={onScroll}>
       {isRefreshing && renderLoading()}
 
       {children}

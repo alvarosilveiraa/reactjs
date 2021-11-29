@@ -1,12 +1,6 @@
 import {Body, Fullscreen} from '~/components';
 import {AppProvider, HeaderProvider} from '~/contexts';
-import {
-  EmptyPage,
-  HomePage,
-  ProfilePage,
-  ProfileEditPage,
-  SigninPage,
-} from '~/pages';
+import {EmptyPage, HomePage, ProfilePage, ProfileEditPage, SigninPage} from '~/pages';
 import {getRouteTitle} from './routes.utils';
 import {RouteType} from './routes.type';
 

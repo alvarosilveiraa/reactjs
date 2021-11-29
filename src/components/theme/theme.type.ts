@@ -14,3 +14,9 @@ export type ThemeMousePositionType = null | {
   y: number;
   ctrlKey: boolean;
 };
+
+export type ThemeRenderModalType = {
+  title: string;
+  isOpen: boolean;
+  onClose: () => void;
+};

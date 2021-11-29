@@ -8,24 +8,45 @@ import {
   List,
   ListItem,
   Button,
+  Switch,
+  FormControl,
+  FormLabel,
+  IconButton,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
 } from '@chakra-ui/react';
+import {SettingsIcon} from '@chakra-ui/icons';
 import {ChevronLeftIcon, ChevronRightIcon} from '@chakra-ui/icons';
-import {useModalContext} from '~/contexts';
-import {ThemeType, ThemeMousePositionType} from './theme.type';
+import {ThemeType, ThemeMousePositionType, ThemeRenderModalType} from './theme.type';
 import {ThemeComponent} from '~/theme';
 
-export const Theme = ({
-  isOpen,
-  onOpen,
-  onClose,
-  components = [],
-  children,
-}: ThemeType) => {
-  const {onOpen: modalOnOpen, onClose: modalOnClose} = useModalContext();
+export const Theme = ({isOpen, onOpen, onClose, components = [], children}: ThemeType) => {
+  const {
+    isOpen: isOpenModalElement,
+    onOpen: onOpenModalElement,
+    onClose: onCloseModalElement,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenModalComponent,
+    onOpen: onOpenModalComponent,
+    onClose: onCloseModalComponent,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenModalSettings,
+    onOpen: onOpenModalSettings,
+    onClose: onCloseModalSettings,
+  } = useDisclosure();
   const [filterComponentsValue, setFilterComponentsValue] = useState('');
-  const [mousePosition, setMousePosition] =
-    useState<ThemeMousePositionType>(null);
+  const [activeComponent, setActiveComponent] = useState<ThemeComponent | null>(null);
+  const [mousePosition, setMousePosition] = useState<ThemeMousePositionType>(null);
   const [activeElement, setActiveElement] = useState<Element | null>(null);
+  const [eventsEnabled, setEventsEnabled] = useState(false);
 
   const filterComponents = ({name}: ThemeComponent) => {
     const pattern = new RegExp(filterComponentsValue, 'i');
@@ -37,7 +58,7 @@ export const Theme = ({
     () => (isOpen ? onClose?.() : onOpen?.());
 
     if (isOpen) {
-      modalOnClose?.();
+      onCloseModalSettings?.();
 
       onClose?.();
     } else {
@@ -55,7 +76,7 @@ export const Theme = ({
     if (e.ctrlKey) {
       e.stopPropagation();
 
-      modalOnOpen?.({title: 'Componente', body: e.target.outerHTML});
+      onOpenModalElement();
     }
   }, []);
 
@@ -69,10 +90,7 @@ export const Theme = ({
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Control' && mousePosition) {
-        const element = document.elementFromPoint(
-          mousePosition?.x,
-          mousePosition?.y,
-        );
+        const element = document.elementFromPoint(mousePosition?.x, mousePosition?.y);
 
         setActiveElement(element);
       }
@@ -92,36 +110,56 @@ export const Theme = ({
   );
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpenModalElement) {
+      setEventsEnabled(false);
+    }
+  }, [isOpenModalElement]);
+
+  useEffect(() => {
+    if (activeComponent) {
+      onOpenModalComponent();
+    } else {
+      onCloseModalComponent();
+    }
+  }, [activeComponent]);
+
+  useEffect(() => {
+    if (!eventsEnabled) {
+      onClearElements();
+    }
+  }, [eventsEnabled, onClearElements]);
+
+  useEffect(() => {
+    if (isOpen && eventsEnabled) {
       setTimeout(() => {
         window.addEventListener('mousemove', onMouseMove);
-      }, 200);
+      }, 400);
 
       return () => {
         window.removeEventListener('mousemove', onMouseMove);
       };
     }
-  }, [isOpen, onMouseMove]);
+  }, [isOpen, eventsEnabled, onMouseMove]);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && eventsEnabled) {
       window.addEventListener('keydown', onKeyDown);
 
       return () => {
         window.removeEventListener('keydown', onKeyDown);
       };
     }
-  }, [isOpen, onKeyDown]);
+  }, [isOpen, eventsEnabled, onKeyDown]);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && eventsEnabled) {
       window.addEventListener('keyup', onKeyUp);
 
       return () => {
         window.removeEventListener('keyup', onKeyUp);
       };
     }
-  }, [isOpen, onKeyUp]);
+  }, [isOpen, eventsEnabled, onKeyUp]);
 
   useEffect(() => {
     onClearElements();
@@ -143,9 +181,7 @@ export const Theme = ({
         variant="ghost"
         justifyContent="flex-start"
         borderRadius={0}
-        onClick={() =>
-          modalOnOpen?.({title: component.name, body: 'Exemplo/Edição/Copiar'})
-        }
+        onClick={() => setActiveComponent(component)}
         loadingText={component.name}
       >
         {component.name}
@@ -155,6 +191,42 @@ export const Theme = ({
 
   const renderComponents = () => (
     <List>{components.filter(filterComponents).map(renderComponent)}</List>
+  );
+
+  const renderModalElement = () => <>{activeElement?.outerHTML}</>;
+
+  const renderSettings = () => (
+    <FormControl display="flex" alignItems="center">
+      <Switch
+        id="mousemove-event"
+        marginRight={2}
+        isChecked={eventsEnabled}
+        onChange={() => setEventsEnabled(!eventsEnabled)}
+      />
+
+      <FormLabel cursor="pointer" htmlFor="mousemove-event" mb="0">
+        {eventsEnabled ? 'Desabilitar eventos' : 'Habilitar eventos'}
+      </FormLabel>
+    </FormControl>
+  );
+
+  const renderModal = (
+    {title, isOpen, onClose}: ThemeRenderModalType,
+    render?: () => JSX.Element,
+  ) => (
+    <Modal isOpen={isOpen} onClose={onClose} size="xl">
+      <ModalOverlay />
+
+      <ModalContent>
+        <ModalHeader>{title}</ModalHeader>
+
+        <ModalCloseButton />
+
+        <ModalBody>{render?.()}</ModalBody>
+
+        <ModalFooter />
+      </ModalContent>
+    </Modal>
   );
 
   return (
@@ -183,16 +255,11 @@ export const Theme = ({
           border="none"
           outline="none"
           backgroundColor="white"
-          transitionDelay="200ms"
-          transition={{backgroundColor: 'inherit'}}
+          transition="background-color 200ms"
           _hover={{backgroundColor: 'teal.50'}}
           onClick={onToggleExpansion}
         >
-          {isOpen ? (
-            <ChevronRightIcon width="24px" />
-          ) : (
-            <ChevronLeftIcon width="24px" />
-          )}
+          {isOpen ? <ChevronRightIcon width="24px" /> : <ChevronLeftIcon width="24px" />}
         </chakra.button>
 
         <Box flex={1}>
@@ -200,11 +267,22 @@ export const Theme = ({
             display="flex"
             alignItems="center"
             justifyContent="center"
+            position="relative"
             paddingY={4}
           >
             <Heading as="h3" size="lg">
               Theme
             </Heading>
+
+            <IconButton
+              position="absolute"
+              top={4}
+              right={0}
+              size="sm"
+              aria-label="Settings"
+              icon={<SettingsIcon />}
+              onClick={() => onOpenModalSettings()}
+            />
           </Box>
 
           <Divider marginBottom={4} />
@@ -227,6 +305,36 @@ export const Theme = ({
 
         <chakra.div width="24px" />
       </chakra.div>
+
+      {renderModal(
+        {
+          title: activeElement?.nodeName || 'Element',
+          isOpen: isOpenModalElement,
+          onClose: () => {
+            setActiveElement(null);
+
+            setEventsEnabled(true);
+
+            onCloseModalElement();
+          },
+        },
+        renderModalElement,
+      )}
+
+      {renderModal({
+        title: activeComponent?.name || 'Component',
+        isOpen: isOpenModalComponent,
+        onClose: () => setActiveComponent(null),
+      })}
+
+      {renderModal(
+        {
+          title: 'Settings',
+          isOpen: isOpenModalSettings,
+          onClose: onCloseModalSettings,
+        },
+        renderSettings,
+      )}
     </chakra.div>
   );
 };

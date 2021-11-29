@@ -7,14 +7,7 @@ import {RouterType} from './router.type';
 
 export const Router = ({onRoute}: RouterType) => {
   const getNewLayouts = (
-    {
-      component,
-      Component,
-      layouts = [],
-      Layouts = [],
-      layout,
-      Layout,
-    }: RouteType,
+    {component, Component, layouts = [], Layouts = [], layout, Layout}: RouteType,
     type: 'lower' | 'upper' | 'both' = 'both',
     hasComponent = true,
   ) => {
@@ -56,9 +49,7 @@ export const Router = ({onRoute}: RouterType) => {
   };
 
   const renderRoute = (route: RouteType, prevRoute?: RouteType) => {
-    const prevLayouts = prevRoute
-      ? getNewLayouts(prevRoute, 'both', false)
-      : [];
+    const prevLayouts = prevRoute ? getNewLayouts(prevRoute, 'both', false) : [];
 
     const newLayouts = getNewLayouts(route);
 
@@ -72,9 +63,7 @@ export const Router = ({onRoute}: RouterType) => {
       <Route
         key={`route-${name}`}
         path={path}
-        element={
-          <Layouts route={route} layouts={newLayouts} onRoute={onRoute} />
-        }
+        element={<Layouts route={route} layouts={newLayouts} onRoute={onRoute} />}
       />,
     );
 
